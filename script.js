@@ -1,6 +1,7 @@
 //please start from init function
-let table;
-let boardData;
+import Game from "./Game.js";
+let table
+let game = 5;
 const ROWS = 8;
 const COLS = 8;
 
@@ -26,6 +27,9 @@ function createBoard() {
 const init = () => {
     console.log("hello from init funcion ");
     table = createBoard(); // create board and return table HTML elemnt
+    game = new Game(table, ROWS, COLS);
+    game.start();
+
 }
 
 window.addEventListener('load', () => {

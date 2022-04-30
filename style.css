@@ -29,8 +29,7 @@ tr,
 td {
     border: 1px solid rgb(255, 255, 255);
     /* border: none; */
-    position: relative;
-    margin: 0px;
+    position: relative margin: 0px;
 }
 
 
@@ -38,13 +37,15 @@ td {
     width: 65px;
     height: 65px;
     text-align: center;
-    /* pointer-events: none; */
+    position: relative;
+    justify-content: center;
+    align-content: center;
 
 }
 
 td:hover {
     cursor: crosshair;
-    background-color: rgba(0, 139, 139, 0.789) !important;
+    background-color: rgba(111, 187, 187, 0.9) !important;
 }
 
 tr:nth-child(odd) td:nth-child(odd) {
@@ -76,4 +77,41 @@ tr:nth-child(even) td:nth-child(odd) {
     border-radius: 16px;
     background-color: white;
     position: relative;
+}
+
+.piece {
+    background-color: #331e0b;
+    border-radius: 50%;
+    box-shadow: -1px 5px 8px black;
+    width: 80%;
+    height: 80%;
+    margin: 0 auto;
+    position: relative;
+    cursor: pointer;
+    box-shadow: -2px -2px 7px #dd878773, 3px 3px 5px black;
+}
+
+.piece::after {
+    content: '';
+    position: absolute;
+    height: 80%;
+    width: 80%;
+    background-color: transparent;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    box-shadow: inset -2px -2px 7px #dd878773, inset 2px 2px 5px black;
+}
+
+.black {
+    background-color: #331e0b;
+}
+
+.red {
+    background-color: rgb(198, 17, 17);
+}
+
+.step {
+    background-color: #b6d772 !important;
 }
