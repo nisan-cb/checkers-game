@@ -1,0 +1,79 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 36px;
+    font-family: monospace;
+    color: white;
+}
+
+section {
+    width: 100%;
+    height: fit-content;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    background-color: #312e2b;
+    flex-direction: column;
+}
+
+h1 {
+    color: antiquewhite;
+    margin: 30px 0 30px;
+}
+
+
+table,
+tr,
+td {
+    border: 1px solid rgb(255, 255, 255);
+    /* border: none; */
+    position: relative;
+    margin: 0px;
+}
+
+
+td {
+    width: 65px;
+    height: 65px;
+    text-align: center;
+    /* pointer-events: none; */
+
+}
+
+td:hover {
+    cursor: crosshair;
+    background-color: rgba(0, 139, 139, 0.789) !important;
+}
+
+tr:nth-child(odd) td:nth-child(odd) {
+    background-color: #875729;
+}
+
+tr:nth-child(odd) td:nth-child(even) {
+    background-color: #e5c1a4;
+}
+
+tr:nth-child(even) td:nth-child(even) {
+    background-color: #875729;
+}
+
+tr:nth-child(even) td:nth-child(odd) {
+    background-color: #e5c1a4;
+}
+
+.selected {
+    border: 1px solid rgb(137, 199, 12);
+    background-color: rgba(0, 139, 139, 0.789) !important;
+    cursor: pointer !important;
+}
+
+#board {
+    border-spacing: 1px;
+    margin-bottom: 50px;
+    border: 20px solid brown;
+    border-radius: 16px;
+    background-color: white;
+    position: relative;
+}
