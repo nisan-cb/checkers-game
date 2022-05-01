@@ -1,4 +1,4 @@
-import Piece from "./Piece.js";
+// import Piece from "./Piece.js";
 
 class Group {
     constructor(color, matrix) {
@@ -17,4 +17,4 @@ class Group {
 
 }
 
-export default Group;
+// export default Group;

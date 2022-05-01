@@ -1,5 +1,5 @@
 //please start from init function
-import Game from "./Game.js";
+// import Game from "./Game.js";
 let table
 let game = 5;
 const ROWS = 8;

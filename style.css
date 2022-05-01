@@ -29,8 +29,11 @@ tr,
 td {
     border: 1px solid rgb(255, 255, 255);
     /* border: none; */
-    position: relative margin: 0px;
+    position: relative;
+    margin: 0px;
+    overflow: hidden;
 }
+
 
 
 td {
@@ -40,6 +43,7 @@ td {
     position: relative;
     justify-content: center;
     align-content: center;
+    overflow: hidden;
 
 }
 
@@ -85,10 +89,17 @@ tr:nth-child(even) td:nth-child(odd) {
     box-shadow: -1px 5px 8px black;
     width: 80%;
     height: 80%;
+    max-width: 50px;
+    max-height: 50px;
     margin: 0 auto;
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     cursor: pointer;
     box-shadow: -2px -2px 7px #dd878773, 3px 3px 5px black;
+
+
 }
 
 .piece::after {
@@ -104,6 +115,18 @@ tr:nth-child(even) td:nth-child(odd) {
     box-shadow: inset -2px -2px 7px #dd878773, inset 2px 2px 5px black;
 }
 
+.king::before {
+    content: '';
+    position: absolute;
+    height: 40%;
+    width: 40%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 166, 0);
+    clip-path: polygon(50% 0%, 66% 60%, 100% 35%, 100% 54%, 100% 90%, 54% 90%, 0 90%, 0 61%, 0 35%, 33% 60%);
+}
+
 .black {
     background-color: #331e0b;
 }
@@ -114,4 +137,35 @@ tr:nth-child(even) td:nth-child(odd) {
 
 .step {
     background-color: #b6d772 !important;
+}
+
+.move {
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
+    /* animation-fill-mode: both; */
+    animation-name: animate-pop;
+}
+
+@keyframes animate-fade {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes animate-pop {
+    0% {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    100% {
+        opacity: 1;
+        width: 80%;
+        height: 80%;
+    }
 }
