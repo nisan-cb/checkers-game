@@ -46,68 +46,65 @@ class Game {
 
     clickOnCellkHandler(e, i, j) {
         const cellData = this.matrix[i][j];
-        this.cleanSteps(this.currentPiece);
         let result = this.isValidMove(i, j);
         console.log(result)
         if (result) {
             console.log('in')
+            this.makeMove(this.currentPiece, i, j);
             this.cleanSteps(this.currentPiece);
-            this.makeMove(this.currentPiece, result);
             this.currentPiece = undefined;
         } else if (cellData) {
             this.currentPiece = cellData;
             this.currentPiece.calcValidSteps(this.matrix);
             this.displayValidSteps(this.currentPiece);
         }
+
     }
     isValidMove(i, j) {
-        if (!this.currentPiece) return undefined;
-        for (let validMove of this.currentPiece.validSteps) {
-            const step = validMove['cell'];
-            if (i === step[0] && j === step[1] && validMove['from'] !== undefined)
-                return validMove;
+        if (!this.currentPiece) return false;
+        for (let step of this.currentPiece.validSteps) {
+            if (i === step[0] && j === step[1])
+                return true;
         }
+        this.cleanSteps(this.currentPiece);
         this.currentPiece = undefined;
-        return undefined;
+        return false;
     }
     displayValidSteps(piece) {
         if (!piece) return;
-        for (const validMove of piece.validSteps) {
-            const step = validMove['cell'];
+        for (const step of piece.validSteps) {
+            console.log(step)
             this.table.rows[step[0]].cells[step[1]].classList.add('step');
         }
     }
 
     cleanSteps(piece) {
         if (!piece) return;
-        for (const validMove of piece.validSteps) {
-            const step = validMove['cell'];
+        for (const step of piece.validSteps) {
             this.table.rows[step[0]].cells[step[1]].classList.remove('step');
             this.matrix[step[0]][step[1]] = undefined;
         }
     }
-    makeMove(piece, validMove) {
+    makeMove(piece, i, j) {
+        console.log([i, j])
+        const validMove = this.matrix[i][j];
+        console.log(validMove)
         if (validMove['from'] === undefined) return;
-        console.log('validMove=', validMove);
 
-        this.makeMove(piece, validMove['from']);
+        console.log([validMove.from.cell[0], validMove.from.cell[1]])
+        this.makeMove(piece, validMove.from.cell[0], validMove.from.cell[1]);
 
         setTimeout(() => {
-            const new_r = validMove['cell'][0];
-            const new_c = validMove['cell'][1];
-
             this.table.rows[piece.r].cells[piece.c].innerHTML = '';
             this.matrix[piece.r][piece.c] = undefined;
 
-            console.log([new_r, piece.r, new_c, piece.c])
-            if (new_r - piece.r !== 1 && new_r - piece.r !== -1)
-                this.removePieceByCellIndex((new_r + piece.r) / 2, (new_c + piece.c) / 2);
+            if (i - piece.r !== 1 && i - piece.r !== -1)
+                this.removePieceByCellIndex((i + piece.r) / 2, (j + piece.c) / 2);
 
             piece.el.classList.add('move');
-            this.table.rows[new_r].cells[new_c].appendChild(piece.el);
-            console.log([new_r, new_c]);
-            this.matrix[new_r][new_c] = piece;
-            piece.setPosition(new_r, new_c)
+            this.table.rows[i].cells[j].appendChild(piece.el);
+            this.matrix[i][j] = piece;
+            piece.setPosition(i, j)
         }, validMove['delay'] * 90);
 
     }

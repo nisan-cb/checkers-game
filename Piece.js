@@ -24,23 +24,24 @@ class Piece {
         const source = {
             'cell': [this.r, this.c],
             'from': undefined,
+            'length': 0,
             'delay': 1
         };
         this.validSteps = [];
-        // this.validSteps.push(source);
 
         this.pi.push
         for (const direction of this.directions) {
             let new_r = this.r + direction[0], new_c = this.c + direction[1];
             if (new_r < 0 || new_r >= 8 || new_c >= 8 || new_c < 0) continue;
-            console.log([new_r, new_c]);
-            if (!matrix[new_r][new_c]) {
+            if (!matrix[new_r][new_c]) { // if the cell is empty
                 const validStep = {
                     'cell': [new_r, new_c],
                     'from': source,
+                    'length': source['length'] + 1,
                     'delay': source['delay'] * 1.5
                 };
-                this.validSteps.push(validStep);
+                matrix[new_r][new_c] = validStep;
+                this.validSteps.push([new_r, new_c]);
             } else {
                 this.checkDiagonal(matrix, direction, source);
 
@@ -59,18 +60,20 @@ class Piece {
 
         if (!cellA || cellA.color === this.color) return;
         if (cellB) return;
-        if (matrix[new_r][new_c] === 1) return;
+
 
         const validStep = {
             'cell': [new_r, new_c],
             'from': prevCell,
+            'length': prevCell['length'] + 1,
             'delay': prevCell['delay'] * 1.5 + 2
         };
-        matrix[new_r][new_c] = 1;
+        matrix[new_r][new_c] = validStep;
 
-        this.validSteps.push(validStep);
-        for (const dir of this.directions)
-            this.checkDiagonal(matrix, dir, validStep);
+        this.validSteps.push([new_r, new_c]);
+
+        for (const direrction of this.directions)
+            this.checkDiagonal(matrix, direrction, validStep);
     }
 }
 
