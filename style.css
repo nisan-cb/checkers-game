@@ -225,30 +225,59 @@ tr:nth-child(even) td:nth-child(odd) {
     box-shadow: 0px 0px 12px 1px white;
 }
 
-#unDoBtn {
-    box-shadow: -2px -2px 7px #dd878773, 3px 3px 5px black;
+#btns-area {
     display: none;
-    width: 65px;
-    height: 65px;
     position: absolute;
-    top: 0%;
-    right: 0;
     transform: translate(120%, 10%);
-    cursor: pointer;
+    top: 0;
+    right: 0;
+    flex-direction: column;
 }
 
-#unDoBtn::after {
-    content: 'undo';
-    color: antiquewhite;
-    font-size: 18px;
+.btn {
+    box-shadow: -2px -2px 7px #dd878773, 3px 3px 5px black;
+    width: 65px;
+    height: 65px;
+    cursor: pointer;
+    z-index: 99;
+    position: relative;
+    margin: 8px 0;
+}
+
+.btn:hover {
+    transform: translate(0%, -6px);
+    transition: all 1s;
+}
+
+.btn::after {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    color: antiquewhite;
+    font-size: 18px;
     font-weight: bold;
 }
 
-#unDoBtn:hover {
-    transform: translate(120%, 0%);
-    transition: all 1s;
+#unDoBtn::after {
+    content: 'undo';
+}
+
+#restartBtn::after {
+    content: 'new';
+}
+
+
+
+.popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: aliceblue;
+    border-radius: 10px;
+    padding: 30px 15px;
+    color: black;
+    box-shadow: 0 0 5px 2px black;
+
 }

@@ -2,12 +2,6 @@
 const RED = 'red';
 const BLACK = 'black';
 
-let lastMove = {
-    'piece': undefined, // reference to last piece moved
-    'source': [], // prev piece position
-    'killed': [] // array of piece that killed in this move
-}
-
 class Game {
     constructor(tableElement, rows, cols) {
         this.table = tableElement;
@@ -26,8 +20,8 @@ class Game {
         // this.redGroup.piecesList[0].setPosition(0, 0);
         // this.redGroup.piecesList[2].setPosition(4, 2);
         // this.redGroup.piecesList[3].setPosition(4, 2);
-        this.blackGroup.piecesList[3].setPosition(3, 3);
-        this.blackGroup.piecesList[1].setPosition(3, 5);
+        // this.blackGroup.piecesList[3].setPosition(3, 3);
+        // this.blackGroup.piecesList[1].setPosition(3, 5);
 
         this.insertGroupIntoMatrix(this.blackGroup);
         this.insertGroupIntoMatrix(this.redGroup);
@@ -105,14 +99,10 @@ class Game {
 
     }
     makeMove(piece, i, j, length) {
-        console.log(length);
-        console.log([i, j]);
         const validMove = this.matrix[i][j];
         if (validMove['from'] === undefined) return;
 
         this.makeMove(piece, validMove.from.cell[0], validMove.from.cell[1], length);
-        // this.sleep(2000);
-
 
         setTimeout(() => {
             if (i - piece.r !== 1 && i - piece.r !== -1) {
@@ -128,7 +118,6 @@ class Game {
             this.table.rows[i].cells[j].appendChild(piece.el);
 
             if (validMove.length === length) {
-                console.log("ok")
                 piece.el.classList.remove('move');
                 this.switchTurn();
             }
@@ -136,13 +125,12 @@ class Game {
 
     }
     replace(piece, i, j) {
-        console.log('1')
         this.table.rows[i].cells[j].appendChild(piece.el);
-
     }
 
     removePieceByCellIndex(i, j) {
         this.table.rows[i].cells[j].innerHTML = '';
+        this.matrix[i][j].remove(this.getGroupByColor(this.matrix[i][j].color));
         this.matrix[i][j] = undefined;
     }
 
@@ -151,9 +139,10 @@ class Game {
         document.getElementById(`${this.currentGrup.color}-turn`).classList.remove('turn');
         this.currentGrup = this.getOpponentGroup();
         document.getElementById(`${this.currentGrup.color}-turn`).classList.add('turn');
-        if (this.isDeadlock())
-            console.log('deadlock')
-
+        if (this.currentGrup.piecesList.length === 0)
+            this.popUpMessage(`${this.getOpponentGroup().color} wins !`)
+        else if (this.isDeadlock())
+            this.popUpMessage('DeadLock !');
     }
 
     getOpponentGroup(color = this.currentGrup.color) {
@@ -187,30 +176,32 @@ class Game {
     }
 
     addElements() {
+        document.getElementById('btns-area').style.display = 'flex';
         document.getElementById('turn-switch').style.display = 'block';
         let undoBtn = document.getElementById('unDoBtn');
-        undoBtn.style.display = 'block';
-        console.log(undoBtn);
         undoBtn.addEventListener('click', () => { this.unDoLastMove() });
     }
 
     unDoLastMove() {
-        console.log('undo');
-        console.log(this.undoVector);
         const lastMove = this.undoVector.pop();
         if (!lastMove) return;
-
         const piece = lastMove.piece;
         this.matrix[piece.r][piece.c] = undefined;
         this.matrix[lastMove.source[0]][lastMove.source[1]] = lastMove.piece;
         piece.setPosition(lastMove.source[0], lastMove.source[1]);
-        for (const killed of lastMove.killed)
+        for (const killed of lastMove.killed) {
             this.matrix[killed.r][killed.c] = killed;
+            this.getGroupByColor(killed.color).insertPiece(killed);
+        }
         this.display();
         this.switchTurn();
     }
 
+    popUpMessage(message) {
+        let popup = document.createElement('div');
+        popup.classList.add('popup')
+        popup.innerHTML = message;
+        this.table.append(popup);
+    }
 
 }
-
-// export default Game;

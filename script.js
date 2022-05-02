@@ -29,10 +29,15 @@ const init = () => {
     table = createBoard(); // create board and return table HTML elemnt
     game = new Game(table, ROWS, COLS);
     game.start();
-
 }
+
 
 window.addEventListener('load', () => {
     console.log('page is fully loaded');
     init();
+    let restartBtn = document.getElementById('restartBtn');
+    restartBtn.addEventListener('click', () => {
+        console.log('new game')
+        init()
+    })
 });

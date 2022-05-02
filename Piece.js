@@ -76,10 +76,9 @@ class Piece {
     }
 
     remove(group) {
-        console.log('remove')
-        for (let p of group.piecesList)
-            if (p.id === this.id)
-                group.piecesList.splice(this.id, 1);
+        for (let i = 0; i < group.piecesList.length; i++)
+            if (group.piecesList[i].id === this.id)
+                group.piecesList.splice(i, 1);
     }
 }
 

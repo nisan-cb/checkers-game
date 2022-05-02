@@ -14,6 +14,9 @@ class Group {
             this.piecesList[i] = new Piece(this.color, r, c, i);
         }
     }
+    insertPiece(piece) {
+        this.piecesList.push(piece);
+    }
 
 }
 
