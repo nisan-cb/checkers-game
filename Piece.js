@@ -1,12 +1,12 @@
 class Piece {
-    constructor(color, r, c) {
+    constructor(color, r, c, id) {
         this.color = color;
+        this.id = id;
         this.r = r;
         this.c = c;
         this.d = (color === 'red') ? 1 : -1;
         this.directions = [[this.d, 1], [this.d, -1]];
         this.validSteps = [];
-        this.pi = [];
         this.el = document.createElement('div');
         this.el.classList.add('piece', color);
     }
@@ -29,7 +29,6 @@ class Piece {
         };
         this.validSteps = [];
 
-        this.pi.push
         for (const direction of this.directions) {
             let new_r = this.r + direction[0], new_c = this.c + direction[1];
             if (new_r < 0 || new_r >= 8 || new_c >= 8 || new_c < 0) continue;
@@ -74,6 +73,13 @@ class Piece {
 
         for (const direrction of this.directions)
             this.checkDiagonal(matrix, direrction, validStep);
+    }
+
+    remove(group) {
+        console.log('remove')
+        for (let p of group.piecesList)
+            if (p.id === this.id)
+                group.piecesList.splice(this.id, 1);
     }
 }
 

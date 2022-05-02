@@ -11,7 +11,7 @@ class Group {
         for (let i = 0; i < 12; i++) {
             let r = k + i % 3;
             let c = 2 * (i % 4) + r % 2
-            this.piecesList[i] = new Piece(this.color, r, c);
+            this.piecesList[i] = new Piece(this.color, r, c, i);
         }
     }
 
