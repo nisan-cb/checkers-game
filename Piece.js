@@ -10,12 +10,9 @@ class Piece {
         this.el = document.createElement('div');
         this.el.classList.add('piece', color);
     }
-    getPosition() {
-        return [this.r, rjis.c];
-    }
     setPosition(r, c) {
         this.r = r; this.c = c;
-        if (this.r + this.d === -1 || this.r + this.d === 8) {
+        if (this.r + this.d === -1 || this.r + this.d === 8) { // means if now can be king
             this.el.classList.add('king');
             this.directions = [[-1, -1], [-1, 1], [1, 1], [1, -1]];
         }
@@ -27,6 +24,7 @@ class Piece {
             'length': 0,
             'delay': 1
         };
+
         this.validSteps = [];
 
         for (const direction of this.directions) {
@@ -60,7 +58,6 @@ class Piece {
         if (!cellA || cellA.color === this.color) return;
         if (cellB) return;
 
-
         const validStep = {
             'cell': [new_r, new_c],
             'from': prevCell,
@@ -81,6 +78,3 @@ class Piece {
                 group.piecesList.splice(i, 1);
     }
 }
-
-
-// export default Piece;

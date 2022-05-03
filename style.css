@@ -4,7 +4,7 @@
     box-sizing: border-box;
     font-size: 36px;
     font-family: monospace;
-    color: white;
+    color: antiquewhite;
 }
 
 section {
@@ -19,10 +19,8 @@ section {
 }
 
 h1 {
-    color: antiquewhite;
     margin: 30px 0 30px;
 }
-
 
 table,
 tr,
@@ -34,8 +32,6 @@ td {
     overflow: hidden;
 }
 
-
-
 td {
     width: 65px;
     height: 65px;
@@ -43,8 +39,6 @@ td {
     position: relative;
     justify-content: center;
     align-content: center;
-    overflow: hidden;
-
 }
 
 td:hover {
@@ -69,7 +63,6 @@ tr:nth-child(even) td:nth-child(odd) {
 }
 
 .selected {
-    border: 1px solid rgb(137, 199, 12);
     background-color: rgba(0, 139, 139, 0.789) !important;
     cursor: pointer !important;
 }
@@ -83,36 +76,26 @@ tr:nth-child(even) td:nth-child(odd) {
     position: relative;
 }
 
-#board-box {
-    box-shadow: -2px -2px 7px #dd878773, 3px 3px 5px black;
-    border-radius: 16px;
-
-}
-
 .piece {
     background-color: #331e0b;
     border-radius: 50%;
-    box-shadow: -1px 5px 8px black;
     width: 80%;
     height: 80%;
     max-width: 50px;
     max-height: 50px;
-    margin: 0 auto;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     cursor: pointer;
     box-shadow: -2px -2px 7px #dd878773, 3px 3px 5px black;
-    text-align: center;
 }
 
 .piece::after {
     content: '';
     position: absolute;
-    height: 80%;
-    width: 80%;
-    background-color: transparent;
+    height: 65%;
+    width: 65%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -144,41 +127,12 @@ tr:nth-child(even) td:nth-child(odd) {
     background-color: #b6d772 !important;
 }
 
-.move {
-    animation-duration: 0.5s;
-    animation-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
-    /* animation-fill-mode: both; */
-    animation-name: animate-pop;
-}
-
-@keyframes animate-fade {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes animate-pop {
-    0% {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-    100% {
-        opacity: 1;
-        width: 80%;
-        height: 80%;
-    }
-}
 
 .container {
-    /* display: flex; */
+    display: flex;
     align-items: center;
     position: relative;
+    flex-direction: column;
 }
 
 #turn-switch {
@@ -188,9 +142,8 @@ tr:nth-child(even) td:nth-child(odd) {
     height: 130px;
     position: absolute;
     top: 50%;
-    right: 0;
-    transform: translate(120%, -50%);
-    position: absolute;
+    right: -15px;
+    transform: translate(100%, -50%);
 }
 
 .inner-turn-switch {
@@ -201,7 +154,6 @@ tr:nth-child(even) td:nth-child(odd) {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-
 }
 
 #red-turn {
@@ -209,8 +161,6 @@ tr:nth-child(even) td:nth-child(odd) {
     transform: none;
     left: auto;
     top: auto;
-    /* transform: translate(-50%, 0%); */
-
 }
 
 #black-turn {
@@ -218,7 +168,6 @@ tr:nth-child(even) td:nth-child(odd) {
     transform: none;
     left: auto;
     top: auto;
-    /* transform: translate(0, -50%); */
 }
 
 .turn {
@@ -228,20 +177,23 @@ tr:nth-child(even) td:nth-child(odd) {
 #btns-area {
     display: none;
     position: absolute;
-    transform: translate(120%, 10%);
+    transform: translate(100%, 10%);
     top: 0;
-    right: 0;
+    right: -15px;
     flex-direction: column;
 }
 
 .btn {
     box-shadow: -2px -2px 7px #dd878773, 3px 3px 5px black;
-    width: 65px;
-    height: 65px;
+    min-width: 65px;
+    min-height: 65px;
     cursor: pointer;
-    z-index: 99;
     position: relative;
-    margin: 8px 0;
+    margin: 10px 0;
+    width: 100%;
+    height: fit-content;
+    padding: 25px 10px;
+    font-size: 18px;
 }
 
 .btn:hover {
@@ -254,9 +206,12 @@ tr:nth-child(even) td:nth-child(odd) {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: antiquewhite;
     font-size: 18px;
     font-weight: bold;
+}
+
+.disabled {
+    cursor: not-allowed;
 }
 
 #unDoBtn::after {
@@ -267,17 +222,15 @@ tr:nth-child(even) td:nth-child(odd) {
     content: 'new';
 }
 
-
-
 .popup {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: aliceblue;
+    background-color: #312e2b;
     border-radius: 10px;
     padding: 30px 15px;
-    color: black;
     box-shadow: 0 0 5px 2px black;
-
+    text-align: center;
+    padding: 30px 50px;
 }
