@@ -17,9 +17,9 @@ class Game {
     }
 
     start() {
-        this.redGroup.piecesList[0].setPosition(0, 0);
+        // this.redGroup.piecesList[0].setPosition(0, 0);
         // this.redGroup.piecesList[2].setPosition(0, 0);
-        // // this.redGroup.piecesList[3].setPosition(4, 2);
+        //  this.redGroup.piecesList[3].setPosition(4, 2);
         // this.blackGroup.piecesList[0].setPosition(2, 2);
         // this.blackGroup.piecesList[1].setPosition(3, 3);
         // this.blackGroup.piecesList[3].setPosition(3, 5);
