@@ -103,7 +103,7 @@ tr:nth-child(even) td:nth-child(odd) {
     box-shadow: inset -2px -2px 7px #dd878773, inset 2px 2px 5px black;
 }
 
-.king::before {
+.queen::before {
     content: '';
     position: absolute;
     height: 40%;

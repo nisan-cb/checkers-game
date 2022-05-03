@@ -12,23 +12,21 @@ class Game {
         this.undoVector = [];
         this.lastMove = {};
         this.audio = new Audio('./sounds/knock.wav');
+        this.addElements();
         this.helloWindow();
-
     }
 
     start() {
-        // this.redGroup.piecesList[0].setPosition(7, 3);
+        this.redGroup.piecesList[0].setPosition(0, 0);
         // this.redGroup.piecesList[2].setPosition(0, 0);
         // // this.redGroup.piecesList[3].setPosition(4, 2);
-        // this.blackGroup.piecesList[0].setPosition(3, 3);
-        // this.blackGroup.piecesList[1].setPosition(5, 3);
-        this.blackGroup.piecesList[1].setPosition(4, 0);
-        this.blackGroup.piecesList[3].setPosition(3, 5);
+        // this.blackGroup.piecesList[0].setPosition(2, 2);
+        // this.blackGroup.piecesList[1].setPosition(3, 3);
+        // this.blackGroup.piecesList[3].setPosition(3, 5);
 
         this.insertGroupIntoMatrix(this.blackGroup);
         this.insertGroupIntoMatrix(this.redGroup);
         this.addClickEventToCells();
-        this.addElements();
         this.display();
     }
     insertGroupIntoMatrix(group) {
@@ -56,6 +54,7 @@ class Game {
         if (this.isValidMove(i, j)) {
             this.lastMove = {
                 'piece': this.currentPiece,
+                'isQueen': this.currentPiece.isQueen,
                 'source': [this.currentPiece.r, this.currentPiece.c],
                 'killed': []
             };
@@ -103,6 +102,7 @@ class Game {
 
         this.makeMove(piece, validMove.from.cell[0], validMove.from.cell[1], length);
 
+
         setTimeout(() => {
             if (i - piece.r !== 1 && i - piece.r !== -1) {
                 this.lastMove.killed.push(this.matrix[(i + piece.r) / 2][(j + piece.c) / 2]);
@@ -110,16 +110,13 @@ class Game {
             }
             this.audio.play();
 
-
-
             this.matrix[piece.r][piece.c] = undefined;
             this.matrix[i][j] = piece;
             piece.setPosition(i, j)
             this.table.rows[i].cells[j].appendChild(piece.el);
 
-            if (validMove.length === length) {
+            if (validMove.length === length)
                 this.switchTurn();
-            }
 
         }, validMove['delay'] * 90);
     }
@@ -169,13 +166,19 @@ class Game {
         document.getElementById('btns-area').style.display = 'flex';
         document.getElementById('turn-switch').style.display = 'block';
         let undoBtn = document.getElementById('unDoBtn');
-        undoBtn.addEventListener('click', () => { this.unDoLastMove() });
+        undoBtn.addEventListener('click', (e) => { this.unDoLastMove(e); });
     }
 
-    unDoLastMove() {
+    unDoLastMove(e) {
+
         const lastMove = this.undoVector.pop();
+
         if (!lastMove) return;
         const piece = lastMove.piece;
+
+        if (!lastMove.isQueen)
+            piece.levelDown();
+
         this.matrix[piece.r][piece.c] = undefined;
         this.matrix[lastMove.source[0]][lastMove.source[1]] = lastMove.piece;
         piece.setPosition(lastMove.source[0], lastMove.source[1]);

@@ -4,19 +4,23 @@ class Piece {
         this.id = id;
         this.r = r;
         this.c = c;
+        this.isQueen = false;
         this.d = (color === 'red') ? 1 : -1;
         this.directions = [[this.d, 1], [this.d, -1]];
         this.validSteps = [];
         this.el = document.createElement('div');
         this.el.classList.add('piece', color);
     }
+
     setPosition(r, c) {
         this.r = r; this.c = c;
-        if (this.r + this.d === -1 || this.r + this.d === 8) { // means if now can be king
-            this.el.classList.add('king');
+        if (this.r + this.d === -1 || this.r + this.d === 8) { // means if now can be queen
+            this.el.classList.add('queen');
+            this.isQueen = true;
             this.directions = [[-1, -1], [-1, 1], [1, 1], [1, -1]];
         }
     }
+
     calcValidSteps(matrix) {
         const source = {
             'cell': [this.r, this.c],
@@ -41,7 +45,6 @@ class Piece {
                 this.validSteps.push([new_r, new_c]);
             } else {
                 this.checkDiagonal(matrix, direction, source);
-
             }
         }
     }
@@ -76,5 +79,11 @@ class Piece {
         for (let i = 0; i < group.piecesList.length; i++)
             if (group.piecesList[i].id === this.id)
                 group.piecesList.splice(i, 1);
+    }
+
+    levelDown() {
+        this.isQueen = false;
+        this.directions = [[this.d, 1], [this.d, -1]];
+        this.el.classList.remove('queen');
     }
 }
